@@ -22,6 +22,8 @@ public class Main {
         System.out.println(originalBoard);
         System.out.println(originalBoard.boardValue());
 
+        
+
         //Minimize Algorithm
         //Make a function that stores all the resulting states
         //it determines the best states and repeats until the optimal way is found
@@ -30,7 +32,7 @@ public class Main {
 
         //More specifically
         /*
-        make a function that determines if it has similarly colored squares around it
+        //make a function that determines if it has similarly colored squares around it
 
         make a function that makes every possible swap with a square that has
         a similarly colored square around it and stores the states

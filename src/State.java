@@ -7,6 +7,7 @@ public class State extends Board {
 
     public State(int[][] board) {
         this.board = board;
+      
     }
 
 

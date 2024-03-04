@@ -5,8 +5,8 @@ public class Board {
     private int[][] board;
     private ArrayList<String> colors = new ArrayList<>();
     private ArrayList<State> states = new ArrayList<>();
-
-
+    private ArrayList<int[]> badSquares = new ArrayList<>();
+    private ArrayList<int[]> alreadySwapped = new ArrayList<>();
 
     //Creating the color arrayList because of indexOf
     public Board() {
@@ -94,6 +94,8 @@ public class Board {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == board[i - 1][j]) {
                     count++;
+                    badSquares.add(new int[] {i, j});
+                    badSquares.add(new int[] {i - 1 , j});
                 }
             }
         }
@@ -101,6 +103,8 @@ public class Board {
             for (int j = 1; j < board[0].length; j++) {
                 if (board[i][j] == board[i][j - 1]) {
                     count++;
+                    badSquares.add(new int[] {i, j});
+                    badSquares.add(new int[] {i , j - 1});
                 }
             }
         }
@@ -131,6 +135,9 @@ public class Board {
         return copy;
     }
 
+
+    //checks if it can swap in the direction provided
+    //Up Left Right Down - 1 2 3 4 (same convention as earlier)
     private boolean canSwap(int x, int y, int direction) {
         switch (direction) {
             case 0 :
@@ -153,6 +160,9 @@ public class Board {
         return true;
     }
 
+
+
+    //adds a new state given the initial square coordinates and the direction
     public void addState(int x, int y, int direction) {
         states.add(new State(swap(x, y, direction)));
     }
@@ -161,9 +171,9 @@ public class Board {
 
 
 
-    //public int minimizeAlgorithm() {
-
-    //}
+    public int minimizeAlgorithm() {
+        
+    }
 
 
 
