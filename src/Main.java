@@ -8,7 +8,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
 
-        Board originalBoard= new Board();
+        Board originalBoard = new Board();
         originalBoard.createBoard();
 
         //creates new boards until its solvable
@@ -21,8 +21,9 @@ public class Main {
 
         System.out.println(originalBoard);
         System.out.println(originalBoard.boardValue());
-
         
+        originalBoard.minimizeAlgorithm();
+        originalBoard.toString();
 
         //Minimize Algorithm
         //Make a function that stores all the resulting states

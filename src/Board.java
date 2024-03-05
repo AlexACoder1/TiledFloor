@@ -1,10 +1,11 @@
+import java.awt.Taskbar.State;
 import java.util.*;
 
 public class Board {
     Scanner scan = new Scanner(System.in);
     private int[][] board;
     private ArrayList<String> colors = new ArrayList<>();
-    private ArrayList<State> states = new ArrayList<>();
+    private ArrayList<State2> states = new ArrayList<>();
     private ArrayList<int[]> badSquares = new ArrayList<>();
     private ArrayList<int[]> alreadySwapped = new ArrayList<>();
 
@@ -118,7 +119,10 @@ public class Board {
     public int[][] swap(int x1, int y1, int direction) {
         int x2 = x1;
         int y2 = y1;
-        int[][] copy = board.clone();
+        int[][] copy = new int[board.length][];
+        for (int i = 0; i < board.length; i++) {
+          copy[i] = board[i].clone();
+        }
         switch (direction) {
             case 0 :
                 x2--;
@@ -136,24 +140,24 @@ public class Board {
     }
 
 
-    //checks if it can swap in the direction provided
+    //checks if it can swap in the direction provided and its not the same value
     //Up Left Right Down - 1 2 3 4 (same convention as earlier)
     private boolean canSwap(int x, int y, int direction) {
         switch (direction) {
             case 0 :
-                if (x - 1 < 0) {
+                if (x - 1 < 0 || board[x][y] == board[x - 1][y]) {
                     return false;
                 }
             case 1 :
-                if (y - 1 < 0) {
+                if (y - 1 < 0 || board[x][y] == board[x][y - 1]) {
                     return false;
                 }
             case 2 :
-                if (y + 1 >= board[0].length) {
+                if (y + 1 >= board[0].length || board[x][y] == board[x][y + 1]) {
                     return false;
                 }
             case 3 :
-                if (x + 1 >= board.length) {
+                if (x + 1 >= board.length || board[x][y] == board[x + 1][y]) {
                     return false;
                 }
         }
@@ -162,9 +166,11 @@ public class Board {
 
 
 
-    //adds a new state given the initial square coordinates and the direction
+    //adds a new state given the initial tile coordinates and the direction
     public void addState(int x, int y, int direction) {
-        states.add(new State(swap(x, y, direction)));
+        System.out.printf("[%d , %d]\n%d - Direction\n", x, y, direction);
+        State2 temp = new State2(swap(x, y, direction));
+        states.add(temp);
     }
 
 
@@ -172,7 +178,20 @@ public class Board {
 
 
     public int minimizeAlgorithm() {
-        
+        for (int[] badSquare : badSquares) {
+          for (int i = 0; i < 4; i++) {
+            if (canSwap(badSquare[0], badSquare[1], i)) {
+              addState(badSquare[0], badSquare[1], i);
+            }
+          }
+        }
+        for (State2 state : states) {
+          System.out.println(state);
+          //System.out.println(state.boardValue());
+          
+        }
+      
+      return 256;
     }
 
 
